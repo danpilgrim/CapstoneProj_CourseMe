@@ -1,7 +1,7 @@
 # openar-courseme
 
 
-## Git Commands
+## Git Local Commands
 
 TO START:
 $ git clone https://github.com/danpilgrim/cse575tong.git
@@ -22,6 +22,18 @@ $ git checkout -b name_of_branch
 
 TO ONLY CHECKOUT (SWITCH TO) A BRANCH:
 $ git checkout name_of_branch   
+
+
+## Git Remote Commands
+
+TO PUSH TO UPSTREAM ORIGIN:
+$ git branch --set-upstream my_branch origin/my_branch
+
+TO VIEW REMOTE BRANCHES:
+$ git branch -r
+
+TO PULL REMOTE BRANCH:
+$ git checkout -t origin/haml
 
 
 ## React Commands
