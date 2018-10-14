@@ -4,7 +4,7 @@
 ## Git Local Commands
 
 TO START:
-$ git clone https://github.com/danpilgrim/cse575tong.git
+$ git clone https://github.com/danpilgrim/openar-courseme.git
 
 TO PULL CODE LOCALLY:
 $ git pull
