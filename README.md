@@ -8,7 +8,7 @@ $ git clone https://github.com/danpilgrim/cse575tong.git
 
 TO PULL CODE LOCALLY:
 $ git pull
-$ git reset --hard    # overwrites current local code with last push
+$ git reset --hard                  # overwrites current local code with last push
 
 TO PUSH CODE TO REPOSITORY:
 $ git commit -am "information about the commit"
@@ -46,5 +46,5 @@ $ react-native run-ios
 $ react-native run-android
 
 TO RUN WITH LOGS:
-$ react-native log-ios      #prints all under code's console.log('text');
+$ react-native log-ios                  #prints all under code's console.log('text');
 $ react-native log-android
