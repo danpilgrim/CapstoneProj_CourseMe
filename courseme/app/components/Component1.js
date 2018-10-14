@@ -8,22 +8,28 @@ const instructions = Platform.select({
     'Shake or press menu button for dev menu',
 });
 
-type Props = {};
 export default class Component1 extends Component<Props> {
   
   constructor(){
       super();
       this.state = {
-          name: 'Brad'
+          name: 'Brad',
+          showName: true,
+          message: 'Hello there'
       }
   } 
   
+  static defaultProps = {
+      message: 'Hi there'
+  }
+  
   render() {
+      let name = this.state.showName ? this.state.name : 'No name'
     return (
       <View >
         <Text></Text>
-        <Text>{this.state.name}</Text>
-        <Text>{this.props.message}</Text>
+        <Text>{name}</Text>
+        <Text>{this.state.message}</Text>
       </View>
     );
   }
