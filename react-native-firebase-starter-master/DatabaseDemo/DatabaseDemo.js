@@ -1,13 +1,5 @@
 import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  ScrollView,
-  Button,
-} from 'react-native'
-
-import firebase from 'react-native-firebase'
+import { View } from 'react-native'
 
 import ClassWrite from './ClassWrite';
 import ClassView from './ClassView';
@@ -15,9 +7,9 @@ import ClassView from './ClassView';
 export default class DatabaseDemo extends React.Component {
     render() {
         return (
-            <View>
-            <ClassWrite></ClassWrite>
-            <ClassView></ClassView>                
+            <View style={{flex: 1}}>
+                <ClassWrite style={{flex: 1}}/>
+                <ClassView style={{flex: 1}}/>               
             </View>
         )
     }

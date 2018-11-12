@@ -1,5 +1,12 @@
 import React from 'react';
-import { StyleSheet, Platform, Image, Text, View, ScrollView, Button, TextInput } from 'react-native';
+import { 
+  StyleSheet, 
+  Text, 
+  View, 
+  Button, 
+  TextInput 
+} 
+from 'react-native';
 
 import firebase from 'react-native-firebase';
 
