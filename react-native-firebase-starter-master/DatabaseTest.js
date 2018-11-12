@@ -24,25 +24,25 @@ export default class DatabaseTest extends React.Component {
 
   render() {
     return (
-      <View style={{padding: 50}}>
-        <Text>Testing...</Text>
+      <View style={{padding: 100}}>
+        <Text style={{fontSize: 30}}>Enter class information:</Text>
         <TextInput
-          style={{height: 20}}
+          style={styles.textBox}
           placeholder="Class ID"
           onChangeText={(text) => this.setState({classId: text})}
         />
         <TextInput
-          style={{height: 20}}
+          style={styles.textBox}
           placeholder="Class Name"
           onChangeText={(text) => this.setState({className: text})}
         />
         <TextInput
-          style={{height: 20}}
+          style={styles.textBox}
           placeholder="Professor"
           onChangeText={(text) => this.setState({professor: text})}
         />
         <TextInput
-          style={{height: 20}}
+          style={styles.textBox}
           placeholder="Days"
           onChangeText={(text) => this.setState({days: text})}
         />
@@ -61,7 +61,14 @@ export default class DatabaseTest extends React.Component {
     var dbRef = firebase.database().ref('classes/' + id);
     dbRef.set(classInfo);
   }
+
+  
 }
+const styles = StyleSheet.create({
+  textBox: {
+    height: 40
+  }
+});
 
 
 
