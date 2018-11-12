@@ -3,7 +3,7 @@ import { StyleSheet, Platform, Image, Text, View, ScrollView, Button, TextInput 
 
 import firebase from 'react-native-firebase';
 
-export default class DatabaseTest extends React.Component {
+export default class ClassWrite extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -24,7 +24,7 @@ export default class DatabaseTest extends React.Component {
 
   render() {
     return (
-      <View style={{padding: 100}}>
+      <View style={{padding: 20}}>
         <Text style={{fontSize: 30}}>Enter class information:</Text>
         <TextInput
           style={styles.textBox}

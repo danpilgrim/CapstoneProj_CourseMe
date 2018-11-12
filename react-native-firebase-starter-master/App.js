@@ -3,7 +3,7 @@ import { StyleSheet, Platform, Image, Text, View, ScrollView } from 'react-nativ
 
 import firebase from 'react-native-firebase';
 
-import DatabaseTest from './DatabaseTest';
+import DatabaseDemo from './DatabaseDemo/DatabaseDemo';
 
 export default class App extends React.Component {
   constructor() {
@@ -20,7 +20,9 @@ export default class App extends React.Component {
   }
 
   render() {
-    return (<DatabaseTest></DatabaseTest>)
+    return (
+      <DatabaseDemo></DatabaseDemo>
+    )
   }
 }
 
