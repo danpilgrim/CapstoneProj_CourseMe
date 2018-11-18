@@ -61,16 +61,14 @@ export default class ClassWrite extends React.Component {
       </View>
     );
   }
-
   
   createClass(id, name, professor, days) {
     var classInfo = {name: name, professor: professor, days: days};
     var dbRef = firebase.database().ref('classes/' + id);
     dbRef.set(classInfo);
   }
-
-  
 }
+
 const styles = StyleSheet.create({
   textBox: {
     height: 40

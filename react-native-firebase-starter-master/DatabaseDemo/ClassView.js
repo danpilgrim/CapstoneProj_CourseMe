@@ -11,7 +11,6 @@ import firebase from 'react-native-firebase';
 
 export default class ClassView extends React.Component {
     
-
     constructor() {
         super();
         this.state = {
@@ -26,7 +25,7 @@ export default class ClassView extends React.Component {
                 {
                     this.state.classList.map((item, index) => (
                         <View key={item.id}>
-                            <Text>{item.id} {item.name} {item.professor} {item.days}</Text>
+                            <Text>{item.id}, {item.name}, {item.professor}, {item.days}</Text>
                         </View>
                     ))
                 }
