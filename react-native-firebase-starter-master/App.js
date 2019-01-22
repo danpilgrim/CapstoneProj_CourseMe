@@ -1,28 +1,33 @@
 import React from 'react';
 import { StyleSheet, Platform, Image, Text, View, ScrollView } from 'react-native';
+import { createStackNavigator, createAppContainer } from "react-navigation";
 
 import firebase from 'react-native-firebase';
 
+// Screens
 import DatabaseDemo from './DatabaseDemo/DatabaseDemo';
+import MainScreen from './Screens/MainScreen';
+import NewScreen from './Screens/NewScreen';
 
+// Create navigator containing all screens
+const AppNavigator = createStackNavigator(
+  {
+    Main: MainScreen,
+    New: NewScreen
+  },
+  {
+    initialRouteName: 'Main'
+  }
+);
+
+// Wrap the navigator
+const AppContainer = createAppContainer(AppNavigator);
+
+// export 
 export default class App extends React.Component {
-  constructor() {
-    super();
-    this.state = {};
-  }
-
-  async componentDidMount() {
-    // TODO: You: Do firebase things
-    // const { user } = await firebase.auth().signInAnonymously();
-    // console.warn('User -> ', user.toJSON());
-
-    // await firebase.analytics().logEvent('foo', { bar: '123'});
-  }
-
-  render() {
-    return (
-      <DatabaseDemo></DatabaseDemo>
-    )
+  render()
+  {
+    return <AppContainer/>
   }
 }
 
