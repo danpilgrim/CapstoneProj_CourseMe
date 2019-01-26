@@ -38,7 +38,8 @@ export default class ClassView extends React.Component {
       )
     }
  
-    loadClasses() {
+    loadClasses() 
+    {
         var dbRef = firebase.database().ref('classes/').once('value', 
         function (snapshot) {
             this.createClassList(snapshot.val())

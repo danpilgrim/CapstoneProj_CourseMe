@@ -7,16 +7,16 @@ import firebase from 'react-native-firebase';
 // Screens
 import DatabaseDemo from './DatabaseDemo/DatabaseDemo';
 import MainScreen from './Screens/MainScreen';
-import NewScreen from './Screens/NewScreen';
+import GroupScreen from './Screens/GroupScreen';
 
 // Create navigator containing all screens
 const AppNavigator = createStackNavigator(
   {
-    Main: MainScreen,
-    New: NewScreen
+    MainScreen: MainScreen,
+    GroupScreen: GroupScreen
   },
   {
-    initialRouteName: 'Main'
+    initialRouteName: 'MainScreen'
   }
 );
 

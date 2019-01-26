@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Button } from 'react-native'
+import { View, Text, Button } from 'react-native';
 
 export default class MainScreen extends React.Component {
     render()
@@ -8,8 +8,8 @@ export default class MainScreen extends React.Component {
             <View>
                 <Text>Hello World</Text>
                 <Button
-                    title="New Screen"
-                    onPress={() => this.props.navigation.navigate('New')}
+                    title="Assignment List"
+                    onPress={() => this.props.navigation.navigate('GroupScreen')}
                 />
             </View>
         )
