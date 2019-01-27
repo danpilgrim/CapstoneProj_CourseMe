@@ -25,20 +25,22 @@ export default class GroupScreen extends React.Component {
         return (
             <View>
                 <Text style={styles.title}>Test Group Planner</Text>
-                <Text>User: {JSON.stringify(this.state.user)}</Text>
-                <Text>Group: {JSON.stringify(this.state.group)}</Text>
-                <Text>Planner: {JSON.stringify(this.state.planner)}</Text>
-                <Text>Assignments: {JSON.stringify(this.state.assignmentList)}</Text>
-                {/* <ScrollView contentContainerStyle={styles.container}>
+                <Text>User: {this.state.user.name}</Text>
+                <Text>Group: {this.state.group.id}</Text>
+                <Text>Planner: {this.state.planner.id}</Text>
+                <ScrollView contentContainerStyle={styles.container}>
                 {
                     this.state.assignmentList.map((item) => (
                         <View key={item.id}>
-                            <Text>{item.id}, {item.title}, {item.description}</Text>
-                            
+                            <Text>Id: {item.id}</Text>
+                            <Text>Title: {item.title}</Text>
+                            <Text>Description: {item.description}</Text>
+                            <Text>Date Assigned: {item.dateAssigned}</Text>
+                            <Text>Date Due: {item.dateDue} {item.timeDue}</Text>
                         </View>
                     ))
                 }
-                </ScrollView> */}
+                </ScrollView>
             </View>
         )
     }
@@ -120,7 +122,10 @@ export default class GroupScreen extends React.Component {
         .once('value',
         function(snapshot)
         {
-            this.state.assignmentList.push(snapshot.val());
+            var asgn = snapshot.val();
+            asgn.id = snapshot.key;
+
+            this.state.assignmentList.push(asgn);
             this.setState({assignmentList: this.state.assignmentList});
         }.bind(this));
     }
