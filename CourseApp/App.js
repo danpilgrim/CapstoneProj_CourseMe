@@ -1,51 +1,71 @@
-import React, { Component } from 'react';
-import {
-  Platform,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
+/*
+import React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import { createBottomTabNavigator, createAppContainer } from 'react-navigation';
 
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' +
-    'Cmd+D or shake for dev menu',
-  android: 'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
+class HomeScreen extends React.Component {
+    render() {
+        return (
+            <View style={styles.container}>
+                <Text style={styles.title}>HomePage</Text>
+            </View>
+        )
+    }
+} 
+const styles = StyleSheet.create({
+    container: {
+        backgroundColor: 'white',
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    title: {
+        fontWeight: 'bold',
+        fontSize: 18,
+        color: 'black'
+    }
+})
 
-export default class App extends Component<{}> {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit App.js
-        </Text>
-        <Text style={styles.instructions}>
-          {instructions}
-        </Text>
-      </View>
-    );
-  }
+class CalendarScreen extends React.Component {
+    render() {
+        return (
+            <View style={styles.container}>
+                <Text style={styles.title}>Calendar</Text>
+            </View>
+        )
+    }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
+const TabNavigator = createBottomTabNavigator({
+  Home: HomeScreen,
+  Calendar: CalendarScreen,
 });
+
+export default createAppContainer(TabNavigator);
+
+*/
+
+import {
+    createStackNavigator,
+    createAppContainer
+  } from 'react-navigation';
+import Login from './components/Login'
+import RegisterPage from './components/RegisterPage'
+import HomePage from './components/HomePage'
+
+const RootStack = createStackNavigator({
+  Login: {
+    screen: Login
+  },
+  RegisterPage: {
+    screen: RegisterPage
+  },
+  HomePage: {
+      screen: HomePage
+  }
+});
+
+const App = createAppContainer(RootStack);
+
+export default App;
+

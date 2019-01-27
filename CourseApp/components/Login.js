@@ -2,11 +2,9 @@ import React, { Component } from 'react'
 import {
     StyleSheet, Text, View, Image,
     TouchableWithoutFeedback, StatusBar,
-    TextInput, SafeAreaView, Keyboard, TouchableOpacity,
+    TextInput, SafeAreaView, Keyboard, TouchableOpacity, Button,
     KeyboardAvoidingView
 } from 'react-native'
-//import { createStackNavigator, createAppContainer } from "react-navigation";
-
 
 export default class Login extends Component {
     render() {
@@ -37,13 +35,14 @@ export default class Login extends Component {
                                     autoCorrect={false}
                                     ref={"txtPassword"}
                                 />
-                                <TouchableOpacity style={styles.buttonContainer}>
-                                    <Text style={styles.buttonText}>SIGN IN</Text>
-                                    
-                                </TouchableOpacity>
-                                <TouchableOpacity style={styles.buttonContainer}>
-                                    <Text style={styles.buttonText}>Register</Text>
-                                </TouchableOpacity>
+                                <Button style={styles.buttonContainer}
+                                    title = "Sign in"
+                                    onPress={() => this.props.navigation.navigate('HomePage')}>
+                                </Button>
+                                <Button style={styles.buttonContainer}
+                                title = "Register"
+                                onPress={() => this.props.navigation.navigate('RegisterPage')}>
+                                </Button>
                             </View>
                     </TouchableWithoutFeedback>
                 </KeyboardAvoidingView>

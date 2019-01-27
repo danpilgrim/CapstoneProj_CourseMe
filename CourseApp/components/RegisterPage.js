@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
-//import { createBottomTabNavigator, createAppContainer } from 'react-navigation';
-export default class HomePage extends Component {
+
+export default class RegisterPage extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text style={styles.title}>HomePage</Text>
+                <Text style={styles.title}>RegisterPage</Text>
+                
             </View>
         )
     }
@@ -23,12 +24,4 @@ const styles = StyleSheet.create({
         color: 'black'
     }
 })
-/*
-const TabNavigator = createBottomTabNavigator({
-    HomePage: HomePage,
-    Calendar: Calendar,
-  });
-  
-  export default createAppContainer(TabNavigator);
-  */
-  
+
