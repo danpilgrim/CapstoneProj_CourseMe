@@ -11,8 +11,7 @@ export default class GroupScreen extends React.Component {
             user: {},
             group: {},
             planner: {},
-            assignmentList: [],
-            status: ""
+            assignmentList: []
         }
     }
 
@@ -29,8 +28,8 @@ export default class GroupScreen extends React.Component {
                 <Text>User: {JSON.stringify(this.state.user)}</Text>
                 <Text>Group: {JSON.stringify(this.state.group)}</Text>
                 <Text>Planner: {JSON.stringify(this.state.planner)}</Text>
-                <Text>Assignments:</Text>
-                <ScrollView contentContainerStyle={styles.container}>
+                <Text>Assignments: {JSON.stringify(this.state.assignmentList)}</Text>
+                {/* <ScrollView contentContainerStyle={styles.container}>
                 {
                     this.state.assignmentList.map((item) => (
                         <View key={item.id}>
@@ -39,8 +38,7 @@ export default class GroupScreen extends React.Component {
                         </View>
                     ))
                 }
-                </ScrollView>
-                <Text>Status: {this.state.status}</Text>
+                </ScrollView> */}
             </View>
         )
     }
@@ -90,18 +88,41 @@ export default class GroupScreen extends React.Component {
             var planner = snapshot.val();
             planner.id = snapshot.key;
 
-            this.setState({planner: planner});   
-        }.bind(this))
-        .then(
-        function (snapshot)
-        {
-            this.loadAssignments();
+            this.setState({planner: planner});
+            this.loadAssignments();   
         }.bind(this));
     }
 
     loadAssignments()
     {
-        
+        // var asgnIds = Object.keys(this.state.planner.assignments);
+        // this.setState({status: JSON.stringify(asgnIds)});
+
+        // var asgnList: [];
+
+        // asgnIds.forEach(
+        //     function (id)
+        //     {
+        //         firebase.database().ref(`assignments/${id}`).once('value',
+        //         function (snapshot)
+        //         {
+        //             var asgn = snapshot.val();
+        //             asgn.id = snapshot.key;
+
+        //             asgnList.push(asgn);
+
+        //         }.bind(this));
+        //     }
+        // );
+
+        // this.setState({assignmentList: asgnList});
+        firebase.database().ref(`assignments/${Object.keys(this.state.planner.assignments)[0]}`)
+        .once('value',
+        function(snapshot)
+        {
+            this.state.assignmentList.push(snapshot.val());
+            this.setState({assignmentList: this.state.assignmentList});
+        }.bind(this));
     }
 
 
