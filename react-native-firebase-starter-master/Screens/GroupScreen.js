@@ -54,11 +54,6 @@ export default class GroupScreen extends React.Component {
                 user.id = snapshot.key;
 
                 this.setState({user: user});
-                
-            }.bind(this))
-            .then(
-            function (snapshot)
-            {
                 this.loadGroup();
             }.bind(this));
     }
@@ -72,13 +67,9 @@ export default class GroupScreen extends React.Component {
             var group = snapshot.val();
             group.id = snapshot.key;
 
-            this.setState({group: group});   
-        }.bind(this))
-        .then(
-            function (snapshot)
-            {
-                this.loadPlanner();
-            }.bind(this));
+            this.setState({group: group});
+            this.loadPlanner();   
+        }.bind(this));
     }
 
     loadPlanner()
