@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Platform, Image, Text, View, ScrollView } from 'react-native';
-import { createStackNavigator, createAppContainer } from "react-navigation";
+import { createStackNavigator, createAppContainer, createBottomTabNavigator } from "react-navigation";
+import { Agenda } from 'react-native-calendars';
 
 import firebase from 'react-native-firebase';
 
@@ -8,15 +9,17 @@ import firebase from 'react-native-firebase';
 import DatabaseDemo from './DatabaseDemo/DatabaseDemo';
 import MainScreen from './Screens/MainScreen';
 import GroupScreen from './Screens/GroupScreen';
+import LoginScreen from './Screens/Login';
 
 // Create navigator containing all screens
 const AppNavigator = createStackNavigator(
   {
     MainScreen: MainScreen,
-    GroupScreen: GroupScreen
+    GroupScreen: GroupScreen,
+    LoginScreen: LoginScreen
   },
   {
-    initialRouteName: 'MainScreen'
+    initialRouteName: 'LoginScreen'
   }
 );
 
