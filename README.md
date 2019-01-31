@@ -48,3 +48,4 @@ $ react-native run-android
 TO RUN WITH LOGS:
 $ react-native log-ios                  #prints all under code's console.log('text');
 $ react-native log-android
+
