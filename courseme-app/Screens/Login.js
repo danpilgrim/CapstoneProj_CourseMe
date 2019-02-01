@@ -5,15 +5,31 @@ import {
     TextInput, SafeAreaView, Keyboard, TouchableOpacity, Button,
     KeyboardAvoidingView
 } from 'react-native'
+import firebase from 'react-native-firebase';
 
-export default class Login extends Component {
+export default class Login extends React.Component {
+    constructor()
+    {
+        super();
+        this.state = {
+            email: '',
+            password: '',
+            message: ''
+        }
+    }
+
+    async componentDidMount()
+    {
+       
+    }
+
     render() {
         return (
             <SafeAreaView style={styles.container}>
                 <StatusBar barStyle="light-content" />
                 <View style ={styles.nameContainer}>
                     <Text style={styles.title}>CourseMe</Text>
-                    <Text styles={styles.titleInfo}>Made by CSE485 Capstone Group</Text>
+                    <Text styles={styles.titleInfo}>{this.state.message}</Text>
                     </View>
                 <KeyboardAvoidingView behavior='padding' style={styles.container}>
                     <TouchableWithoutFeedback style={styles.container} 
@@ -26,6 +42,7 @@ export default class Login extends Component {
                                     returnKeyType='next'
                                     autoCorrect={false}
                                     onSubmitEditing={()=> this.refs.txtPassword.focus()}
+                                    onChangeText={email => this.setState({email: email})}
                                 />
                                 <TextInput style={styles.input} 
                                     placeholder="Enter password"
@@ -34,10 +51,11 @@ export default class Login extends Component {
                                     secureTextEntry
                                     autoCorrect={false}
                                     ref={"txtPassword"}
+                                    onChangeText={password => this.setState({password: password})}
                                 />
                                 <Button style={styles.buttonContainer}
                                     title = "Sign in"
-                                    onPress={() => this.props.navigation.navigate('HomePage')}>
+                                    onPress={() => this.loginToFirebase()}>
                                 </Button>
                                 <Button style={styles.buttonContainer}
                                 title = "Register"
@@ -49,6 +67,21 @@ export default class Login extends Component {
             </SafeAreaView>
         )
     }
+
+    loginToFirebase()
+    {
+        const email = this.state.email;
+        const password = this.state.password;
+
+        if (email != '' && password != '')
+        {
+            firebase.auth()
+            .signInWithEmailAndPassword(email, password)
+            .then(() => this.props.navigation.navigate('Home'))
+            .catch(error => this.setState({message: error.message}));
+        } 
+    }
+
 }
 const styles = StyleSheet.create({
     container: {
