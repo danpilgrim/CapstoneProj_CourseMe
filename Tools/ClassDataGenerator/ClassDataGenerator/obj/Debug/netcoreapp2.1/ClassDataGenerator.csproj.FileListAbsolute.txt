@@ -1,0 +1,11 @@
+E:\Source\Repos\openar-courseme\Tools\ClassDataGenerator\ClassDataGenerator\bin\Debug\netcoreapp2.1\ClassDataGenerator.deps.json
+E:\Source\Repos\openar-courseme\Tools\ClassDataGenerator\ClassDataGenerator\bin\Debug\netcoreapp2.1\ClassDataGenerator.runtimeconfig.json
+E:\Source\Repos\openar-courseme\Tools\ClassDataGenerator\ClassDataGenerator\bin\Debug\netcoreapp2.1\ClassDataGenerator.runtimeconfig.dev.json
+E:\Source\Repos\openar-courseme\Tools\ClassDataGenerator\ClassDataGenerator\bin\Debug\netcoreapp2.1\ClassDataGenerator.dll
+E:\Source\Repos\openar-courseme\Tools\ClassDataGenerator\ClassDataGenerator\obj\Debug\netcoreapp2.1\ClassDataGenerator.csprojAssemblyReference.cache
+E:\Source\Repos\openar-courseme\Tools\ClassDataGenerator\ClassDataGenerator\obj\Debug\netcoreapp2.1\ClassDataGenerator.csproj.CoreCompileInputs.cache
+E:\Source\Repos\openar-courseme\Tools\ClassDataGenerator\ClassDataGenerator\obj\Debug\netcoreapp2.1\ClassDataGenerator.AssemblyInfoInputs.cache
+E:\Source\Repos\openar-courseme\Tools\ClassDataGenerator\ClassDataGenerator\obj\Debug\netcoreapp2.1\ClassDataGenerator.AssemblyInfo.cs
+E:\Source\Repos\openar-courseme\Tools\ClassDataGenerator\ClassDataGenerator\bin\Debug\netcoreapp2.1\ClassDataGenerator.pdb
+E:\Source\Repos\openar-courseme\Tools\ClassDataGenerator\ClassDataGenerator\obj\Debug\netcoreapp2.1\ClassDataGenerator.dll
+E:\Source\Repos\openar-courseme\Tools\ClassDataGenerator\ClassDataGenerator\obj\Debug\netcoreapp2.1\ClassDataGenerator.pdb
