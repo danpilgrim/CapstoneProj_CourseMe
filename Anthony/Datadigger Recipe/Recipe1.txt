@@ -1,0 +1,19 @@
+//1 Start
+listPage=True
+
+//2 Rows
+rows=tr
+
+//3 Cols
+column1Name="ID"
+column1Type="Text"
+column1Selector=.classNbrColumnValue:eq(0)
+column2Name="classNum"
+column2Type="Text"
+column2Selector=.subjectNumberColumnValue
+column3Name="professor"
+column3Type="Text"
+column3Selector=.nametip
+
+//4 Nav
+nav=a#Any_23.next
