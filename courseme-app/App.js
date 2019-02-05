@@ -1,7 +1,10 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { createBottomTabNavigator, createAppContainer } from 'react-navigation';
+
 import LoginScreen from './Screens/Login';
+import AgendaScreen from './Screens/AgendaScreen';
+
 import firebase from 'react-native-firebase';
 
 class HomeScreen extends React.Component {
@@ -38,7 +41,7 @@ class CalendarScreen extends React.Component {
 const TabNavigator = createBottomTabNavigator({
   Login: LoginScreen,
   Home: HomeScreen,
-  Calendar: CalendarScreen
+  Agenda: AgendaScreen
 });
 export default createAppContainer(TabNavigator);
 /* Old App.js
