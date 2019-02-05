@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {
   Text,
   View,
@@ -8,7 +8,7 @@ import { Agenda } from 'react-native-calendars';
 
 import firebase from 'react-native-firebase';
 
-export default class AgendaScreen extends Component {
+export default class AgendaScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -32,6 +32,7 @@ export default class AgendaScreen extends Component {
       renderItem={this.renderAssignment.bind(this)}
       renderEmptyDate={this.renderEmptyDate.bind(this)}
       rowHasChanged={this.rowHasChanged.bind(this)}
+      
     /> 
     );
   }
@@ -85,13 +86,13 @@ export default class AgendaScreen extends Component {
             asgn.id = asgnId;
 
             // Locally keyed under due date for agenda, must be in array
-            if (!this.state.assignments[asgn.dateDue])
+            if (this.state.assignments[asgn.dateDue] == null)
             {
               this.state.assignments[asgn.dateDue] = [asgn];
             }
-            else
+            else if (this.state.assignments[asgn.dateDue].find(asgn => asgn.id === asgnId) == null)
             {
-              this.state.assignments[asgn.dateDue].push(asgn)
+              this.state.assignments[asgn.dateDue].push(asgn);
             }
 
             this.setState({assignments: this.state.assignments});
@@ -101,10 +102,12 @@ export default class AgendaScreen extends Component {
 
   renderAssignment(asgn) {
     return (
-      <View style={[styles.item, {height: 100}]}>
-      <Text>{asgn.title}</Text>
-      <Text>{asgn.description}</Text>
-      </View>
+      <Assignment
+      title={asgn.title}
+      dateDue={asgn.dateDue}
+      timeDue={asgn.timeDue}
+      description={asgn.description}
+      />
     );
   }
 
@@ -121,6 +124,24 @@ export default class AgendaScreen extends Component {
   timeToString(time) {
     const date = new Date(time);
     return date.toISOString().split('T')[0];
+  }
+}
+
+class Assignment extends React.Component {
+  constructor(props)
+  {
+    super(props);
+  }
+
+  render()
+  {
+    return (
+      <View style={[styles.item, {height: 100}]}>
+      <Text>{this.props.title}</Text>
+      <Text>Date Due: {this.props.dateDue} {this.props.timeDue}</Text>
+      <Text>{this.props.description}</Text>
+      </View>
+    )
   }
 }
 
