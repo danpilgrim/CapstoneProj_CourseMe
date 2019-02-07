@@ -28,11 +28,11 @@ export default class AgendaScreen extends React.Component {
     return (  
       <Agenda
       items={this.state.assignments}
+      loadItemsForMonth={this.loadEmptyDates.bind(this)}
       selected={'2019-02-05'}
       renderItem={this.renderAssignment.bind(this)}
       renderEmptyDate={this.renderEmptyDate.bind(this)}
       rowHasChanged={this.rowHasChanged.bind(this)}
-      
     /> 
     );
   }
@@ -74,7 +74,7 @@ export default class AgendaScreen extends React.Component {
             planner.id = snapshot.key;
 
             this.setState({planner: planner});
-            this.loadAssignments();   
+            this.loadAssignments();
         }.bind(this));
     }
 
@@ -84,7 +84,7 @@ export default class AgendaScreen extends React.Component {
           firebase.database().ref(`assignments/${asgnId}`).on('value', snapshot => {
             asgn = snapshot.val();
             asgn.id = asgnId;
-
+            
             // Locally keyed under due date for agenda, must be in array
             if (this.state.assignments[asgn.dateDue] == null)
             {
@@ -95,9 +95,28 @@ export default class AgendaScreen extends React.Component {
               this.state.assignments[asgn.dateDue].push(asgn);
             }
 
-            this.setState({assignments: this.state.assignments});
+            var updated = {};
+            Object.keys(this.state.assignments).forEach(key => updated[key] = this.state.assignments[key]);
+
+            this.setState({assignments: updated});
           }); 
         });
+    }
+
+    loadEmptyDates(day)
+    {
+      for (let i = -15; i < 85; i++) {
+        const time = day.timestamp + i * 24 * 60 * 60 * 1000;
+        const strTime = this.timeToString(time);
+        if (this.state.assignments[strTime] == null) {
+          this.state.assignments[strTime] = [];
+        }
+      }
+
+      var updated = {};
+      Object.keys(this.state.assignments).forEach(key => updated[key] = this.state.assignments[key]);
+
+      this.setState({assignments: updated});
     }
 
   renderAssignment(asgn) {
@@ -113,7 +132,8 @@ export default class AgendaScreen extends React.Component {
 
   renderEmptyDate() {
     return (
-      <View style={styles.emptyDate}><Text>This is empty date!</Text></View>
+      <View style={styles.emptyDate}>
+      </View>
     );
   }
 
