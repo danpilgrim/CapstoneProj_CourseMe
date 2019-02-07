@@ -24,7 +24,17 @@ export default class AgendaScreen extends React.Component {
 
   async componentDidMount()
   {
-    this.loadUser();
+    firebase.auth().onAuthStateChanged(user => {
+      if (user)
+      {
+        this.loadUser(user);
+      }
+      else
+      {
+        this.props.navigation.navigate('Auth');
+      }
+    });
+    
   }
 
   render() {
@@ -40,9 +50,9 @@ export default class AgendaScreen extends React.Component {
     );
   }
 
-  loadUser()
+  loadUser(user)
     {
-      firebase.database().ref('users/user1').once('value',
+      firebase.database().ref(`users/${user.uid}`).once('value',
           function (snapshot) 
           {
               var user = snapshot.val();
