@@ -7,7 +7,7 @@ import {
 } from 'react-native'
 import firebase from 'react-native-firebase';
 
-export default class Login extends React.Component {
+export default class LoginScreen extends React.Component {
     constructor()
     {
         super();

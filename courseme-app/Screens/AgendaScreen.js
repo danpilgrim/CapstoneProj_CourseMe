@@ -8,6 +8,9 @@ import { Agenda } from 'react-native-calendars';
 
 import firebase from 'react-native-firebase';
 
+/**
+ *  Screen that displays a scrollable agenda.
+ */
 export default class AgendaScreen extends React.Component {
   constructor(props) {
     super(props);
@@ -103,6 +106,7 @@ export default class AgendaScreen extends React.Component {
         });
     }
 
+    // From react-native-calendar code on github, will try to find nicer way to fill in blank dates
     loadEmptyDates(day)
     {
       for (let i = -15; i < 85; i++) {
@@ -147,6 +151,9 @@ export default class AgendaScreen extends React.Component {
   }
 }
 
+/**
+ * A component that displays a single assignment for use within the agenda.
+ */
 class Assignment extends React.Component {
   constructor(props)
   {

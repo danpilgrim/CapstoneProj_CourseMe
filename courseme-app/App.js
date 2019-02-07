@@ -1,21 +1,16 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { createBottomTabNavigator, createAppContainer } from 'react-navigation';
+import { StyleSheet, Text, View, Button } from 'react-native';
+import { createStackNavigator, createSwitchNavigator, createBottomTabNavigator, createAppContainer } from 'react-navigation';
 
-import LoginScreen from './Screens/Login';
+import LoginScreen from './Screens/LoginScreen';
 import AgendaScreen from './Screens/AgendaScreen';
+import SplashScreen from './Screens/SplashScreen';
+import HomeScreen from './Screens/HomeScreen';
+
 
 import firebase from 'react-native-firebase';
 
-class HomeScreen extends React.Component {
-    render() {
-        return (
-            <View style={styles.container}>
-                <Text style={styles.title}>HomePage</Text>
-            </View>
-        )
-    }
-} 
+
 const styles = StyleSheet.create({
     container: {
         backgroundColor: 'white',
@@ -38,12 +33,37 @@ class CalendarScreen extends React.Component {
         )
     }
 }
-const TabNavigator = createBottomTabNavigator({
-  Login: LoginScreen,
+
+/**
+ * The screens concerning authentication of the user.
+ */
+const authStackNav = createStackNavigator({
+  Login: LoginScreen
+})
+
+/**
+ * All of the normal screens in the app.
+ */
+const appTabNav = createBottomTabNavigator({
   Home: HomeScreen,
   Agenda: AgendaScreen
+},
+{
+  initialRouteName: 'Agenda'
 });
-export default createAppContainer(TabNavigator);
+
+/**
+ * The top level of the application. A composition of the other navigators.
+ */
+export default createAppContainer(createSwitchNavigator({
+  Splash: SplashScreen,
+  Auth: authStackNav,
+  App: appTabNav
+},
+{
+  initialRouteName: 'Splash'
+}
+));
 /* Old App.js
 import React from 'react';
 import { StyleSheet, Platform, Image, Text, View, ScrollView } from 'react-native';
