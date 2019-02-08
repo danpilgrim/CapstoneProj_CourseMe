@@ -2,7 +2,8 @@ import React from 'react';
 import {
   Text,
   View,
-  StyleSheet
+  StyleSheet,
+  TouchableOpacity
 } from 'react-native';
 import { Agenda } from 'react-native-calendars';
 
@@ -20,6 +21,9 @@ export default class AgendaScreen extends React.Component {
       planner: {},
       assignments: {}
     };
+    
+    this.plannerListener = {};
+    this.asgnListeners = [];
   }
 
   async componentDidMount()
@@ -37,6 +41,12 @@ export default class AgendaScreen extends React.Component {
     
   }
 
+  async componentWillUnmount()
+  {
+    this.plannerListener();
+    this.asgnListeners.forEach(offFunc => offFunc());
+  }
+
   render() {
     return (  
       <Agenda
@@ -50,6 +60,10 @@ export default class AgendaScreen extends React.Component {
     );
   }
 
+  /**
+   * Loads the current user who is signed in.
+   * @param {*} user
+   */
   loadUser(user)
     {
       firebase.database().ref(`users/${user.uid}`).once('value',
@@ -80,7 +94,7 @@ export default class AgendaScreen extends React.Component {
     loadPlanner()
     {
         // Need the key, value is irrelevant 
-        firebase.database().ref(`planners/${Object.keys(this.state.group.planner)[0]}`).on('value',
+        this.plannerListener = firebase.database().ref(`planners/${Object.keys(this.state.group.planner)[0]}`).on('value',
         function (snapshot) {
 
             var planner = snapshot.val();
@@ -94,7 +108,7 @@ export default class AgendaScreen extends React.Component {
     loadAssignments()
     {
         Object.keys(this.state.planner.assignments).forEach(asgnId => {
-          firebase.database().ref(`assignments/${asgnId}`).on('value', snapshot => {
+          var asgnListener = firebase.database().ref(`assignments/${asgnId}`).on('value', snapshot => {
             asgn = snapshot.val();
             asgn.id = asgnId;
             
@@ -112,11 +126,15 @@ export default class AgendaScreen extends React.Component {
             Object.keys(this.state.assignments).forEach(key => updated[key] = this.state.assignments[key]);
 
             this.setState({assignments: updated});
-          }); 
+          });
+          this.asgnListeners.push(asgnListener);
         });
     }
 
-    // From react-native-calendar code on github, will try to find nicer way to fill in blank dates
+    /**
+     * From react-native-calendar code on github, will try to find nicer way to fill in blank dates.
+     * @param {*} day 
+     */
     loadEmptyDates(day)
     {
       for (let i = -15; i < 85; i++) {
@@ -133,9 +151,14 @@ export default class AgendaScreen extends React.Component {
       this.setState({assignments: updated});
     }
 
+  /**
+   * Displays an assignment component.
+   * @param {*} asgn 
+   */
   renderAssignment(asgn) {
     return (
       <Assignment
+      onPress={() => this.props.navigation.navigate('AssignmentView', {asgn: asgn})}
       title={asgn.title}
       dateDue={asgn.dateDue}
       timeDue={asgn.timeDue}
@@ -155,6 +178,10 @@ export default class AgendaScreen extends React.Component {
     return r1.name !== r2.name;
   }
 
+  /**
+   * Convert time to just the date in a YYYY-MM-DD format.
+   * @param {*} time 
+   */
   timeToString(time) {
     const date = new Date(time);
     return date.toISOString().split('T')[0];
@@ -173,11 +200,13 @@ class Assignment extends React.Component {
   render()
   {
     return (
-      <View style={[styles.item, {height: 100}]}>
-      <Text>{this.props.title}</Text>
-      <Text>Date Due: {this.props.dateDue} {this.props.timeDue}</Text>
-      <Text>{this.props.description}</Text>
-      </View>
+      <TouchableOpacity onPress={this.props.onPress}>
+        <View style={[styles.item, {height: 100}]}>
+          <Text>{this.props.title}</Text>
+          <Text>Date Due: {this.props.dateDue} {this.props.timeDue}</Text>
+          <Text>{this.props.description}</Text>
+        </View>
+      </TouchableOpacity>
     )
   }
 }

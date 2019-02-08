@@ -12,14 +12,16 @@ export default class SplashScreen extends React.Component {
     constructor(props)
     {
         super(props);
+        this.authListener = {};
     }
+
 
     async componentDidMount()
     {
-        firebase.auth().onAuthStateChanged(user => {
+      this.authListener = firebase.auth().onAuthStateChanged(user => {
             if (user)
             {
-                this.props.navigation.navigate('Agenda');
+                this.props.navigation.navigate('AgendaNav');
             }
             else
             {
@@ -27,6 +29,12 @@ export default class SplashScreen extends React.Component {
             }
         });
     }
+
+    async componentWillUnmount()
+    {
+        this.authListener();
+    }
+
 
     render()
     {
