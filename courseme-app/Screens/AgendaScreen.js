@@ -1,13 +1,8 @@
 import React from 'react';
-import {
-  Text,
-  View,
-  StyleSheet,
-  TouchableOpacity
-} from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Agenda } from 'react-native-calendars';
-
 import firebase from 'react-native-firebase';
+
 
 /**
  *  Screen that displays a scrollable agenda.
@@ -62,7 +57,7 @@ export default class AgendaScreen extends React.Component {
 
   /**
    * Loads the current user who is signed in.
-   * @param {*} user
+   * @param {*} user The firebase user object.
    */
   loadUser(user)
     {

@@ -1,23 +1,14 @@
 import React from 'react';
-import {
-  Text,
-  View,
-  StyleSheet,
-  TouchableHighlight
-} from 'react-native';
-import { Agenda } from 'react-native-calendars';
+import { Text, View } from 'react-native';
 
-import firebase from 'react-native-firebase';
 
 export default class AssignmentViewScreen extends React.Component {
-    constructor(props)
-    {
+    constructor(props) {
         super(props);
     }
 
-    render()
-    {
-        const fallbackVal = {title: '', description: '', dateAssigned: '', dateDue: '', timeDue: ''};
+    render() {
+        const fallbackVal = { title: '', description: '', dateAssigned: '', dateDue: '', timeDue: '' };
         const asgn = this.props.navigation.getParam('asgn', fallbackVal);
 
         return (

@@ -1,15 +1,9 @@
-import React, { Component } from 'react'
-import {
-    StyleSheet, Text, View, Image,
-    TouchableWithoutFeedback, StatusBar,
-    TextInput, SafeAreaView, Keyboard, TouchableOpacity, Button,
-    KeyboardAvoidingView
-} from 'react-native'
+import React from 'react';
+import { Button, Keyboard, KeyboardAvoidingView, SafeAreaView, StatusBar, StyleSheet, Text, TextInput, TouchableWithoutFeedback, View } from 'react-native';
 import firebase from 'react-native-firebase';
 
 export default class LoginScreen extends React.Component {
-    constructor()
-    {
+    constructor() {
         super();
         this.state = {
             email: '',
@@ -18,68 +12,65 @@ export default class LoginScreen extends React.Component {
         }
     }
 
-    async componentDidMount()
-    {
-       
+    async componentDidMount() {
+
     }
 
     render() {
         return (
             <SafeAreaView style={styles.container}>
                 <StatusBar barStyle="light-content" />
-                <View style ={styles.nameContainer}>
+                <View style={styles.nameContainer}>
                     <Text style={styles.title}>CourseMe</Text>
                     <Text styles={styles.titleInfo}>{this.state.message}</Text>
-                    </View>
+                </View>
                 <KeyboardAvoidingView behavior='padding' style={styles.container}>
-                    <TouchableWithoutFeedback style={styles.container} 
-                            onPress={Keyboard.dismiss}>
-                            <View style={styles.infoContainer}>
-                                <TextInput style={styles.input}
-                                    placeholder="Enter email"
-                                    placeholderTextColor='black'
-                                    keyboardType='email-address'
-                                    returnKeyType='next'
-                                    autoCorrect={false}
-                                    onSubmitEditing={()=> this.refs.txtPassword.focus()}
-                                    onChangeText={email => this.setState({email: email})}
-                                />
-                                <TextInput style={styles.input} 
-                                    placeholder="Enter password"
-                                    placeholderTextColor='black'
-                                    returnKeyType='go'
-                                    secureTextEntry
-                                    autoCorrect={false}
-                                    ref={"txtPassword"}
-                                    onChangeText={password => this.setState({password: password})}
-                                />
-                                <Button style={styles.buttonContainer}
-                                    title = "Sign in"
-                                    onPress={() => this.loginToFirebase()}>
-                                </Button>
-                                <Button style={styles.buttonContainer}
-                                title = "Register"
+                    <TouchableWithoutFeedback style={styles.container}
+                        onPress={Keyboard.dismiss}>
+                        <View style={styles.infoContainer}>
+                            <TextInput style={styles.input}
+                                placeholder="Enter email"
+                                placeholderTextColor='black'
+                                keyboardType='email-address'
+                                returnKeyType='next'
+                                autoCorrect={false}
+                                onSubmitEditing={() => this.refs.txtPassword.focus()}
+                                onChangeText={email => this.setState({ email: email })}
+                            />
+                            <TextInput style={styles.input}
+                                placeholder="Enter password"
+                                placeholderTextColor='black'
+                                returnKeyType='go'
+                                secureTextEntry
+                                autoCorrect={false}
+                                ref={"txtPassword"}
+                                onChangeText={password => this.setState({ password: password })}
+                            />
+                            <Button style={styles.buttonContainer}
+                                title="Sign in"
+                                onPress={() => this.loginToFirebase()}>
+                            </Button>
+                            <Button style={styles.buttonContainer}
+                                title="Register"
                                 onPress={() => this.props.navigation.navigate('RegisterPage')}>
-                                </Button>
-                            </View>
+                            </Button>
+                        </View>
                     </TouchableWithoutFeedback>
                 </KeyboardAvoidingView>
             </SafeAreaView>
         )
     }
 
-    loginToFirebase()
-    {
+    loginToFirebase() {
         const email = this.state.email;
         const password = this.state.password;
 
-        if (email != '' && password != '')
-        {
+        if (email != '' && password != '') {
             firebase.auth()
-            .signInWithEmailAndPassword(email, password)
-            .then(() => this.props.navigation.navigate('Agenda'))
-            .catch(error => this.setState({message: error.message}))
-        } 
+                .signInWithEmailAndPassword(email, password)
+                .then(() => this.props.navigation.navigate('Agenda'))
+                .catch(error => this.setState({ message: error.message }))
+        }
     }
 
 }
@@ -88,7 +79,7 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: 'white',
         flexDirection: 'column',
-        
+
     },
     nameContainer: {
         alignItems: 'center',
@@ -101,7 +92,7 @@ const styles = StyleSheet.create({
         color: 'black',
         marginTop: 5,
     },
-    titleInfo:{
+    titleInfo: {
         textAlign: 'center',
         fontSize: 20,
         color: 'red',
@@ -132,7 +123,7 @@ const styles = StyleSheet.create({
     },
     buttonText: {
         textAlign: 'center',
-        color :'black',
+        color: 'black',
         fontWeight: 'bold',
         fontSize: 18
     }
