@@ -17,13 +17,14 @@ export default class AgendaScreen extends React.Component {
       assignments: {}
     };
     
+    this.authListener = {};
     this.plannerListener = {};
     this.asgnListeners = [];
   }
 
   async componentDidMount()
   {
-    firebase.auth().onAuthStateChanged(user => {
+    authListener = firebase.auth().onAuthStateChanged(user => {
       if (user)
       {
         this.loadUser(user);
@@ -38,6 +39,7 @@ export default class AgendaScreen extends React.Component {
 
   async componentWillUnmount()
   {
+    this.authListener();
     this.plannerListener();
     this.asgnListeners.forEach(offFunc => offFunc());
   }
@@ -60,17 +62,17 @@ export default class AgendaScreen extends React.Component {
    * @param {*} user The firebase user object.
    */
   loadUser(user)
-    {
-      firebase.database().ref(`users/${user.uid}`).once('value',
-          function (snapshot) 
-          {
-              var user = snapshot.val();
-              user.id = snapshot.key;
+  {
+    firebase.database().ref(`users/${user.uid}`).once('value',
+        function (snapshot) 
+        {
+            var user = snapshot.val();
+            user.id = snapshot.key;
 
-              this.setState({user: user});
-              this.loadGroup();
-          }.bind(this));
-    }
+            this.setState({user: user});
+            this.loadGroup();
+        }.bind(this));
+  }
 
     loadGroup()
     {
