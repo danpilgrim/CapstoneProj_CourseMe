@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "351604789702",
+    "firebase_url": "https://courseme-openar.firebaseio.com",
+    "project_id": "courseme-openar",
+    "storage_bucket": "courseme-openar.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:351604789702:android:23ccca1d181eda7c",
+        "android_client_info": {
+          "package_name": "com.openar.courseme"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "351604789702-nntrbal8g8tjdk80capu6hrt03ntcq4b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBqLrY0H_e-v0J_OMJEni-L6W3xjeby8uA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
