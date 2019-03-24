@@ -8,7 +8,7 @@ export default class AssignmentEditScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            
+            errorMsg: 'None'
         }
     }
 
@@ -23,27 +23,28 @@ export default class AssignmentEditScreen extends React.Component {
         
         return (
             <View>
+                <Text>Error: {this.state.errorMsg}</Text>
                 <Text>Id: {asgn.id}</Text>
                 <Text>Title: </Text>
                 <TextInput
                 placeholder={asgn.title}
-                onChangeText={(text) => asgn.title = text}/>
+                onChangeText={(text) => asgn.title = text.length? text : asgn.title}/>
                 <Text>Description:</Text>
                 <TextInput
                 placeholder={asgn.description}
-                onChangeText={(text) => asgn.description = text}/>
+                onChangeText={(text) => asgn.description = text.length? text : asgn.description}/>
                 <Text>Date Assigned:</Text>
                 <TextInput
                 placeholder={asgn.dateAssigned}
-                onChangeText={(text) => asgn.dateAssigned = text}/>
+                onChangeText={(text) => asgn.dateAssigned = text.length? text : asgn.dateAssigned}/>
                 <Text>Date Due:</Text>
                 <TextInput
                 placeholder={asgn.dateDue}
-                onChangeText={(text) => asgn.dateDue = text}/>
+                onChangeText={(text) => asgn.dateDue = text.length? text : asgn.dateDue}/>
                 <Text>Time Due:</Text>
                 <TextInput
                 placeholder={asgn.timeDue}
-                onChangeText={(text) => asgn.timeDue}/>
+                onChangeText={(text) => asgn.timeDue = text.length? text : asgn.timeDue}/>
                 <Button
                 title='Confirm'
                 onPress={() => this.confirmEdits(asgn)}>
@@ -57,14 +58,14 @@ export default class AssignmentEditScreen extends React.Component {
      */
     confirmEdits(asgn)
     {
-        if (asgn.id != '')
+        if (asgn.id && asgn.id != '')
         {
             let id = asgn.id;
-            delete asgn.id;
+            let asgnCopy = { title: asgn.title, description: asgn.description, dateAssigned: asgn.dateAssigned, dateDue: asgn.dateDue, timeDue: asgn.timeDue}
 
             firebase.database().ref(`assignments/${id}`)
-            .set(asgn)
-            .then(() => this.props.navigation.navigate('AgendaScreen'));
+            .set(asgnCopy, () => this.props.navigation.navigate('Agenda'))
+            .catch((error) => this.setState({errorMsg: error.message}));
         }
     }
 }

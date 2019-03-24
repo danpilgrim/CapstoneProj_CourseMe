@@ -118,6 +118,11 @@ export default class AgendaScreen extends React.Component {
             {
               this.state.assignments[asgn.dateDue].push(asgn);
             }
+            else
+            {
+              let index = this.state.assignments[asgn.dateDue].findIndex(asgn => asgn.id === asgnId);
+              this.state.assignments[asgn.dateDue][index] = asgn;
+            }
 
             var updated = {};
             Object.keys(this.state.assignments).forEach(key => updated[key] = this.state.assignments[key]);
