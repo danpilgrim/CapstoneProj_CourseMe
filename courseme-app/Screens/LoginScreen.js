@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Keyboard, KeyboardAvoidingView, SafeAreaView, StatusBar, StyleSheet, Text, TextInput, TouchableWithoutFeedback, View } from 'react-native';
+import { Button, Keyboard, KeyboardAvoidingView, Platform, SafeAreaView, StatusBar, StyleSheet, Text, TextInput, TouchableWithoutFeedback, View } from 'react-native';
 import firebase from 'react-native-firebase';
 
 export default class LoginScreen extends React.Component {
@@ -20,11 +20,19 @@ export default class LoginScreen extends React.Component {
         return (
             <SafeAreaView style={styles.container}>
                 <StatusBar barStyle="light-content" />
+                <KeyboardAvoidingView
+                  behavior='padding'
+                  style={styles.container}
+                  keyboardVerticalOffset={
+                  Platform.select({
+                     ios: () => 0,
+                     android: () => 200
+                  })()
+                }>
                 <View style={styles.nameContainer}>
                     <Text style={styles.title}>CourseMe</Text>
                     <Text styles={styles.titleInfo}>{this.state.message}</Text>
                 </View>
-                <KeyboardAvoidingView behavior='padding' style={styles.container}>
                     <TouchableWithoutFeedback style={styles.container}
                         onPress={Keyboard.dismiss}>
                         <View style={styles.infoContainer}>
@@ -79,12 +87,14 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: 'white',
         flexDirection: 'column',
-
     },
     nameContainer: {
         alignItems: 'center',
+        flexGrow: 1,
         justifyContent: 'center',
-        flex: 1
+        marginBottom: 191,
+        marginTop: 30,
+        //backgroundColor: 'red',
     },
     title: {
         textAlign: 'center',
@@ -92,11 +102,11 @@ const styles = StyleSheet.create({
         color: 'black',
         marginTop: 5,
     },
-    titleInfo: {
-        textAlign: 'center',
-        fontSize: 20,
-        color: 'red',
-    },
+   // titleInfo: {
+        //textAlign: 'center',
+        //fontSize: 20,
+        //color: 'red',
+    //},
     infoContainer: {
         position: 'absolute',
         left: 0,
@@ -104,7 +114,7 @@ const styles = StyleSheet.create({
         bottom: 0,
         height: 300,
         padding: 20,
-        // backgroundColor: 'red'
+        //backgroundColor: 'red'
     },
     input: {
         height: 40,
@@ -119,7 +129,7 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#f7c744',
         paddingVertical: 15,
-        justifyContent: 'space-between',
+        //justifyContent: 'space-between',
     },
     buttonText: {
         textAlign: 'center',
