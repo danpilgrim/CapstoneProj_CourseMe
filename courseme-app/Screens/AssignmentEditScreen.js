@@ -45,6 +45,10 @@ export default class AssignmentEditScreen extends React.Component {
                 <TextInput
                 placeholder={asgn.timeDue}
                 onChangeText={(text) => asgn.timeDue = text.length? text : asgn.timeDue}/>
+                <Text>Class:</Text>
+                <TextInput
+                placeholder={asgn.class}
+                onChangeText={(text) => asgn.class = text.length? text : asgn.class}/>
                 <Button
                 title='Confirm'
                 onPress={() => this.confirmEdits(asgn)}>
@@ -61,7 +65,7 @@ export default class AssignmentEditScreen extends React.Component {
         if (asgn.id && asgn.id != '')
         {
             let id = asgn.id;
-            let asgnCopy = { title: asgn.title, description: asgn.description, dateAssigned: asgn.dateAssigned, dateDue: asgn.dateDue, timeDue: asgn.timeDue}
+            let asgnCopy = { title: asgn.title, description: asgn.description, dateAssigned: asgn.dateAssigned, dateDue: asgn.dateDue, timeDue: asgn.timeDue, class: asgn.class}
 
             firebase.database().ref(`assignments/${id}`)
             .set(asgnCopy, () => this.props.navigation.navigate('Agenda'))

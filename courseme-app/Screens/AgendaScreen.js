@@ -104,27 +104,32 @@ export default class AgendaScreen extends React.Component {
 
     loadAssignments()
     {
+        
         Object.keys(this.state.planner.assignments).forEach(asgnId => {
-          var asgnListener = firebase.database().ref(`assignments/${asgnId}`).on('value', snapshot => {
+          let asgnListener = firebase.database().ref(`assignments/${asgnId}`).on('value', snapshot => {
             asgn = snapshot.val();
             asgn.id = asgnId;
             
             // Locally keyed under due date for agenda, must be in array
+
+            // New date entry
             if (this.state.assignments[asgn.dateDue] == null)
             {
               this.state.assignments[asgn.dateDue] = [asgn];
             }
+            // Add to date entry
             else if (this.state.assignments[asgn.dateDue].find(asgn => asgn.id === asgnId) == null)
             {
               this.state.assignments[asgn.dateDue].push(asgn);
             }
+            // Edit date entry
             else
             {
               let index = this.state.assignments[asgn.dateDue].findIndex(asgn => asgn.id === asgnId);
               this.state.assignments[asgn.dateDue][index] = asgn;
             }
 
-            var updated = {};
+            let updated = {};
             Object.keys(this.state.assignments).forEach(key => updated[key] = this.state.assignments[key]);
 
             this.setState({assignments: updated});
@@ -177,7 +182,7 @@ export default class AgendaScreen extends React.Component {
   }
 
   rowHasChanged(r1, r2) {
-    return r1.name !== r2.name;
+    return r1 !== r2;
   }
 
   /**
@@ -193,7 +198,7 @@ export default class AgendaScreen extends React.Component {
 /**
  * A component that displays a single assignment for use within the agenda.
  */
-class Assignment extends React.Component {
+export class Assignment extends React.Component {
   constructor(props)
   {
     super(props);
