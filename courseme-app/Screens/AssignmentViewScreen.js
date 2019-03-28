@@ -1,42 +1,63 @@
 import React from 'react';
-import { Text, View, Button } from 'react-native';
+import { Text, Button, View } from 'react-native';
+
 import firebase from 'react-native-firebase';
 
 
-
 export default class AssignmentViewScreen extends React.Component {
-
     constructor(props) {
         super(props);
-    }
-    static navigationOptions = ({ navigation }) => {
-        return {
-          headerRight: (
-            <Button
-            title='Delete'
-            color ='black'
-            onPress = {() => this.props.deleteEvent()}
-            />
-          )
+        
+        this.state = {
+            asgn: {}
         };
     }
+
+    async componentDidMount()
+    {
+        const fallbackVal = { id: -1, title: 'ERR', description: '', dateAssigned: '', dateDue: '', timeDue: '' };
+        this.setState({asgn: this.props.navigation.getParam('asgn', fallbackVal)});
+    }
+    static navigationOptions = {
+        headerRight: (
+            <Button
+                onPress={() => this.deleteEvent()}
+                title = "Delete"
+                color="black"
+                />
+        )
+    }
     render() {
-        const fallbackVal = { title: '', description: '', dateAssigned: '', dateDue: '', timeDue: '' };
+        const fallbackVal = { id: '', title: '', description: '', dateAssigned: '', dateDue: '', timeDue: '' };
         const asgn = this.props.navigation.getParam('asgn', fallbackVal);
-        //const dbRef = firesebase.database().ref('asgn/');
 
         return (
             <View>
-                <Text>Title: {asgn.title}</Text>
-                <Text>Description: {asgn.description}</Text>
-                <Text>Date Assigned: {asgn.dateAssigned}</Text>
-                <Text>Date Due: {asgn.dateDue} {asgn.timeDue}</Text>
+                <Text>Id: {this.state.asgn.id}</Text>
+                <Text>Title: {this.state.asgn.title}</Text>
+                <Text>Description: {this.state.asgn.description}</Text>
+                <Text>Date Assigned: {this.state.asgn.dateAssigned}</Text>
+                <Text>Date Due: {this.state.asgn.dateDue} {this.state.asgn.timeDue}</Text>
+                <Button 
+                title='Edit'
+                onPress={() => {
+                    console.log(this.state.asgn);
+                    this.props.navigation.navigate('AssignmentEdit', {asgn: this.state.asgn})
+                }}/>
+                <Button
+                onPress={() => this.deleteEvent(asgn)}
+                title = "Delete"
+                color="black"
+                />
             </View>
         )
-        
     }
-    deleteEvent(){
-        firebase.database().ref('asgn/').remove();
-       // .then(() => this.props.navigation.navigate('Agenda'))
+
+    deleteEvent(asgn) {
+
+        let id = asgn.id
+        firebase.database().ref(`assignments/${id}`).remove();
+        this.props.navigation.navigate('Agenda')
     }
+
 }
