@@ -110,6 +110,7 @@ export default class AgendaScreen extends React.Component {
             asgn = snapshot.val();
             asgn.id = asgnId;
             
+            
             // Locally keyed under due date for agenda, must be in array
 
             // New date entry

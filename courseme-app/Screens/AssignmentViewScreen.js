@@ -1,6 +1,8 @@
 import React from 'react';
 import { Text, Button, View } from 'react-native';
 
+import firebase from 'react-native-firebase';
+
 
 export default class AssignmentViewScreen extends React.Component {
     constructor(props) {
@@ -16,9 +18,18 @@ export default class AssignmentViewScreen extends React.Component {
         const fallbackVal = { id: -1, title: 'ERR', description: '', dateAssigned: '', dateDue: '', timeDue: '' };
         this.setState({asgn: this.props.navigation.getParam('asgn', fallbackVal)});
     }
-
+    static navigationOptions = {
+        headerRight: (
+            <Button
+                onPress={() => this.deleteEvent()}
+                title = "Delete"
+                color="black"
+                />
+        )
+    }
     render() {
-        
+        const fallbackVal = { id: '', title: '', description: '', dateAssigned: '', dateDue: '', timeDue: '' };
+        const asgn = this.props.navigation.getParam('asgn', fallbackVal);
 
         return (
             <View>
@@ -33,7 +44,20 @@ export default class AssignmentViewScreen extends React.Component {
                     console.log(this.state.asgn);
                     this.props.navigation.navigate('AssignmentEdit', {asgn: this.state.asgn})
                 }}/>
+                <Button
+                onPress={() => this.deleteEvent(asgn)}
+                title = "Delete"
+                color="black"
+                />
             </View>
         )
     }
+
+    deleteEvent(asgn) {
+
+        let id = asgn.id
+        firebase.database().ref(`assignments/${id}`).remove();
+        this.props.navigation.navigate('Agenda')
+    }
+
 }
