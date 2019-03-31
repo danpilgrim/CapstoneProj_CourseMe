@@ -18,15 +18,7 @@ export default class AssignmentViewScreen extends React.Component {
         const fallbackVal = { id: -1, title: 'ERR', description: '', dateAssigned: '', dateDue: '', timeDue: '' };
         this.setState({asgn: this.props.navigation.getParam('asgn', fallbackVal)});
     }
-    static navigationOptions = {
-        headerRight: (
-            <Button
-                onPress={() => this.deleteEvent()}
-                title = "Delete"
-                color="black"
-                />
-        )
-    }
+
     render() {
         const fallbackVal = { id: '', title: '', description: '', dateAssigned: '', dateDue: '', timeDue: '' };
         const asgn = this.props.navigation.getParam('asgn', fallbackVal);
