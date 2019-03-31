@@ -18,6 +18,12 @@ export default class AssignmentViewScreen extends React.Component {
         const fallbackVal = { id: -1, title: 'ERR', description: '', dateAssigned: '', dateDue: '', timeDue: '' };
         this.setState({asgn: this.props.navigation.getParam('asgn', fallbackVal)});
     }
+
+    async componentDidMount()
+    {
+        const fallbackVal = { id: -1, title: 'ERR', description: '', dateAssigned: '', dateDue: '', timeDue: '' };
+        this.setState({asgn: this.props.navigation.getParam('asgn', fallbackVal)});
+    }
     static navigationOptions = {
         headerRight: (
             <Button
