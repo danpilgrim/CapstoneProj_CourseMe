@@ -107,33 +107,53 @@ export default class AgendaScreen extends React.Component {
         
         Object.keys(this.state.planner.assignments).forEach(asgnId => {
           let asgnListener = firebase.database().ref(`assignments/${asgnId}`).on('value', snapshot => {
-            asgn = snapshot.val();
-            asgn.id = asgnId;
-            
-            
-            // Locally keyed under due date for agenda, must be in array
+            let asgn = snapshot.val();
 
-            // New date entry
-            if (this.state.assignments[asgn.dateDue] == null)
+            // Check if deleted
+            if (asgn != null)
             {
-              this.state.assignments[asgn.dateDue] = [asgn];
+              asgn.id = asgnId;
+            
+              // Locally keyed under due date for agenda, must be in array
+              // New date entry
+              if (this.state.assignments[asgn.dateDue] == null)
+              {
+                this.state.assignments[asgn.dateDue] = [asgn];
+              }
+              // Add to date entry
+              else if (this.state.assignments[asgn.dateDue].find(asgn => asgn.id === asgnId) == null)
+              {
+                this.state.assignments[asgn.dateDue].push(asgn);
+              }
+              // Edit date entry
+              else
+              {
+                let index = this.state.assignments[asgn.dateDue].findIndex(asgn => asgn.id === asgnId);
+                this.state.assignments[asgn.dateDue][index] = asgn;
+              }
+
+              let updated = {};
+              Object.keys(this.state.assignments).forEach(key => updated[key] = this.state.assignments[key]);
+
+              this.setState({assignments: updated});
             }
-            // Add to date entry
-            else if (this.state.assignments[asgn.dateDue].find(asgn => asgn.id === asgnId) == null)
-            {
-              this.state.assignments[asgn.dateDue].push(asgn);
-            }
-            // Edit date entry
             else
             {
-              let index = this.state.assignments[asgn.dateDue].findIndex(asgn => asgn.id === asgnId);
-              this.state.assignments[asgn.dateDue][index] = asgn;
+              // Delete the assignment
+              Object.keys(this.state.assignments).forEach(key => {
+                let index = this.state.assignments[key].findIndex(asgn => asgn.id === asgnId)
+                if (index !== -1)
+                {
+                  this.state.assignments[key].splice(index, 1);
+
+                  let updated = {};
+                  Object.keys(this.state.assignments).forEach(key => updated[key] = this.state.assignments[key]);
+                  
+                  this.setState({assignments: updated});
+                }
+              })
             }
-
-            let updated = {};
-            Object.keys(this.state.assignments).forEach(key => updated[key] = this.state.assignments[key]);
-
-            this.setState({assignments: updated});
+            
           });
           this.asgnListeners.push(asgnListener);
         });
