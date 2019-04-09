@@ -18,7 +18,7 @@ export default class AssignmentEditScreen extends React.Component {
     }
 
     render() {
-        const fallbackVal = { id: '', title: '', description: '', dateAssigned: '', dateDue: '', timeDue: '' };
+        const fallbackVal = { id: '', title: '', description: '', dateAssigned: '', dateDue: '', timeDue: '', class: '' };
         const asgn = this.props.navigation.getParam('asgn', fallbackVal);
         
         return (
