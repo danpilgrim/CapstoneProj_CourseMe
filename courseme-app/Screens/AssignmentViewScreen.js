@@ -15,14 +15,11 @@ export default class AssignmentViewScreen extends React.Component {
 
     async componentDidMount()
     {
-        const fallbackVal = { id: -1, title: 'ERR', description: '', dateAssigned: '', dateDue: '', timeDue: '' };
+        const fallbackVal = { id: '', title: 'ERR', description: '', dateAssigned: '', dateDue: '', timeDue: '', class: '' };
         this.setState({asgn: this.props.navigation.getParam('asgn', fallbackVal)});
     }
-
+    
     render() {
-        const fallbackVal = { id: '', title: '', description: '', dateAssigned: '', dateDue: '', timeDue: '' };
-        const asgn = this.props.navigation.getParam('asgn', fallbackVal);
-
         return (
             <View>
                 <Text>Id: {this.state.asgn.id}</Text>
@@ -37,7 +34,7 @@ export default class AssignmentViewScreen extends React.Component {
                     this.props.navigation.navigate('AssignmentEdit', {asgn: this.state.asgn})
                 }}/>
                 <Button
-                onPress={() => this.deleteEvent(asgn)}
+                onPress={() => this.deleteEvent(this.state.asgn)}
                 title = "Delete"
                 color="black"
                 />

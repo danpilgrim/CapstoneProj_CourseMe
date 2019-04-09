@@ -4,6 +4,7 @@ import AssignmentViewScreen from './Screens/AssignmentViewScreen';
 import HomeScreen from './Screens/HomeScreen';
 import LoginScreen from './Screens/LoginScreen';
 import SplashScreen from './Screens/SplashScreen';
+import AssignmentEditScreen from './Screens/AssignmentEditScreen';
 
 /**
  * The screens concerning authentication of the user.
@@ -17,7 +18,8 @@ const authStackNav = createStackNavigator({
  */
 const agendaStackNav = createStackNavigator({
   Agenda: AgendaScreen,
-  AssignmentView: AssignmentViewScreen
+  AssignmentView: AssignmentViewScreen,
+  AssignmentEdit: AssignmentEditScreen
 },
   {
     initialRouteName: 'Agenda'

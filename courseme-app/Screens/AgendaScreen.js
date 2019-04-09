@@ -104,25 +104,56 @@ export default class AgendaScreen extends React.Component {
 
     loadAssignments()
     {
+        
         Object.keys(this.state.planner.assignments).forEach(asgnId => {
-          var asgnListener = firebase.database().ref(`assignments/${asgnId}`).on('value', snapshot => {
-            asgn = snapshot.val();
-            asgn.id = asgnId;
+          let asgnListener = firebase.database().ref(`assignments/${asgnId}`).on('value', snapshot => {
+            let asgn = snapshot.val();
+
+            // Check if deleted
+            if (asgn != null)
+            {
+              asgn.id = asgnId;
             
-            // Locally keyed under due date for agenda, must be in array
-            if (this.state.assignments[asgn.dateDue] == null)
-            {
-              this.state.assignments[asgn.dateDue] = [asgn];
-            }
-            else if (this.state.assignments[asgn.dateDue].find(asgn => asgn.id === asgnId) == null)
-            {
-              this.state.assignments[asgn.dateDue].push(asgn);
-            }
+              // Locally keyed under due date for agenda, must be in array
+              // New date entry
+              if (this.state.assignments[asgn.dateDue] == null)
+              {
+                this.state.assignments[asgn.dateDue] = [asgn];
+              }
+              // Add to date entry
+              else if (this.state.assignments[asgn.dateDue].find(asgn => asgn.id === asgnId) == null)
+              {
+                this.state.assignments[asgn.dateDue].push(asgn);
+              }
+              // Edit date entry
+              else
+              {
+                let index = this.state.assignments[asgn.dateDue].findIndex(asgn => asgn.id === asgnId);
+                this.state.assignments[asgn.dateDue][index] = asgn;
+              }
 
-            var updated = {};
-            Object.keys(this.state.assignments).forEach(key => updated[key] = this.state.assignments[key]);
+              let updated = {};
+              Object.keys(this.state.assignments).forEach(key => updated[key] = this.state.assignments[key]);
 
-            this.setState({assignments: updated});
+              this.setState({assignments: updated});
+            }
+            else
+            {
+              // Delete the assignment
+              Object.keys(this.state.assignments).forEach(key => {
+                let index = this.state.assignments[key].findIndex(asgn => asgn.id === asgnId)
+                if (index !== -1)
+                {
+                  this.state.assignments[key].splice(index, 1);
+
+                  let updated = {};
+                  Object.keys(this.state.assignments).forEach(key => updated[key] = this.state.assignments[key]);
+                  
+                  this.setState({assignments: updated});
+                }
+              })
+            }
+            
           });
           this.asgnListeners.push(asgnListener);
         });
@@ -172,7 +203,7 @@ export default class AgendaScreen extends React.Component {
   }
 
   rowHasChanged(r1, r2) {
-    return r1.name !== r2.name;
+    return r1 !== r2;
   }
 
   /**
@@ -188,7 +219,7 @@ export default class AgendaScreen extends React.Component {
 /**
  * A component that displays a single assignment for use within the agenda.
  */
-class Assignment extends React.Component {
+export class Assignment extends React.Component {
   constructor(props)
   {
     super(props);
