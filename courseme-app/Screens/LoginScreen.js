@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Keyboard, KeyboardAvoidingView, Platform, SafeAreaView, StatusBar, StyleSheet, Text, TextInput, TouchableWithoutFeedback, View } from 'react-native';
+import { Button, Keyboard, KeyboardAvoidingView, TouchableOpacity, Platform, SafeAreaView, StatusBar, StyleSheet, Text, TextInput, TouchableWithoutFeedback, View, Image } from 'react-native';
 import firebase from 'react-native-firebase';
 
 export default class LoginScreen extends React.Component {
@@ -21,18 +21,21 @@ export default class LoginScreen extends React.Component {
             <SafeAreaView style={styles.container}>
                 <StatusBar barStyle="light-content" />
                 <KeyboardAvoidingView
-                  behavior='padding'
-                  style={styles.container}
+                  behavior={'padding'}
+                  style={{flex: 1}}
                   keyboardVerticalOffset={
-                  Platform.select({
-                     ios: () => 0,
-                     android: () => 200
-                  })()
+                    Platform.select({
+                       ios: () => 0,
+                       android: () => 200
+                    })()
                 }>
-                <View style={styles.nameContainer}>
-                    <Text style={styles.title}>CourseMe</Text>
-                    <Text styles={styles.titleInfo}>{this.state.message}</Text>
-                </View>
+                 <View style={styles.nameContainer}>
+                  <Image
+                      source={{uri: 'https://i.ibb.co/WGCyn6n/CM-blue-Solid.png'}}
+                      style={{width: 100, height: 100}}/>
+                     <Text style={styles.title}>CourseMe</Text>
+                     <Text styles={styles.titleInfo}>{this.state.message}</Text>
+                 </View>
                     <TouchableWithoutFeedback style={styles.container}
                         onPress={Keyboard.dismiss}>
                         <View style={styles.infoContainer}>
@@ -91,10 +94,10 @@ const styles = StyleSheet.create({
     nameContainer: {
         alignItems: 'center',
         flexGrow: 1,
-        justifyContent: 'center',
-        marginBottom: 191,
-        marginTop: 30,
-        //backgroundColor: 'red',
+        //justifyContent: 'center',
+        marginBottom: 255,
+        marginTop: 20,
+        //backgroundColor: 'rd',
     },
     title: {
         textAlign: 'center',
@@ -113,7 +116,7 @@ const styles = StyleSheet.create({
         right: 0,
         bottom: 0,
         height: 300,
-        padding: 20,
+        padding: 25,
         //backgroundColor: 'red'
     },
     input: {
@@ -122,14 +125,17 @@ const styles = StyleSheet.create({
         color: 'black',
         borderColor: 'black',
         borderWidth: 1,
-        marginBottom: 20,
-        paddingHorizontal: 10
+        marginBottom: 10,
+        justifyContent: 'flex-end',
+        paddingHorizontal: 5
+        //kjlkj
     },
     buttonContainer: {
         flex: 1,
         backgroundColor: '#f7c744',
+        //justifyContent: 'flex-end',
         paddingVertical: 15,
-        //justifyContent: 'space-between',
+        paddingHorizontal: 1
     },
     buttonText: {
         textAlign: 'center',
