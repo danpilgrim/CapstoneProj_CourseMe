@@ -46,7 +46,8 @@ export default class AssignmentViewScreen extends React.Component {
 
         let id = asgn.id
         firebase.database().ref(`assignments/${id}`).remove();
-        this.props.navigation.navigate('Agenda')
+        firebase.database().ref(`planners/planner1/assignments/${id}`).remove();
+        this.props.navigation.navigate('Agenda');
     }
 
 }

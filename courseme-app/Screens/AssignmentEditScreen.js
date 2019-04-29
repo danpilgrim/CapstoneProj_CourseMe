@@ -45,10 +45,6 @@ export default class AssignmentEditScreen extends React.Component {
                 <TextInput
                 placeholder={asgn.timeDue}
                 onChangeText={(text) => asgn.timeDue = text.length? text : asgn.timeDue}/>
-                <Text>Class:</Text>
-                <TextInput
-                placeholder={asgn.class}
-                onChangeText={(text) => asgn.class = text.length? text : asgn.class}/>
                 <Button
                 title='Confirm'
                 onPress={() => this.confirmEdits(asgn)}>

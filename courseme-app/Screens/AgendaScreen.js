@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View, Button } from 'react-native';
 import { Agenda } from 'react-native-calendars';
 import firebase from 'react-native-firebase';
 
@@ -46,14 +46,19 @@ export default class AgendaScreen extends React.Component {
 
   render() {
     return (  
-      <Agenda
-      items={this.state.assignments}
-      loadItemsForMonth={this.loadEmptyDates.bind(this)}
-      selected={'2019-02-05'}
-      renderItem={this.renderAssignment.bind(this)}
-      renderEmptyDate={this.renderEmptyDate.bind(this)}
-      rowHasChanged={this.rowHasChanged.bind(this)}
-    /> 
+      <View style={{height: 600}}>
+        <Button
+        title='Add New'
+        onPress= {() => this.props.navigation.navigate('AssignmentAdd')}/>
+        <Agenda
+        items={this.state.assignments}
+        loadItemsForMonth={this.loadEmptyDates.bind(this)}
+        selected={'2019-02-05'}
+        renderItem={this.renderAssignment.bind(this)}
+        renderEmptyDate={this.renderEmptyDate.bind(this)}
+        rowHasChanged={this.rowHasChanged.bind(this)}
+        /> 
+      </View>
     );
   }
 
