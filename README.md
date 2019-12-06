@@ -1,6 +1,6 @@
 # openar-courseme
 
-
+---
 ## Git Local Commands
 
 TO START:
@@ -34,7 +34,7 @@ TO ONLY CHECKOUT (SWITCH TO) A BRANCH:
 ```
 $ git checkout name_of_branch   
 ```
-
+---
 ## Git Remote Commands
 
 TO PUSH TO UPSTREAM ORIGIN:
@@ -51,7 +51,7 @@ TO PULL REMOTE BRANCH:
 ```
 $ git checkout -t origin/haml
 ```
-
+---
 ## React Commands
 
 TO CREATE REACT SERVER:
